@@ -1,0 +1,713 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StockManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="250" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+          <Property Name="Share_Value" Type="real" />
+          <Property Name="Current_Series" Type="varchar" MaxLength="20" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="Icon_Image" Type="text" />
+        </EntityType>
+        <EntityType Name="Series">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="OpenTime" Type="date" />
+          <Property Name="CloseTime" Type="date" />
+          <Property Name="Pre_Money" Type="real" />
+          <Property Name="Post_Money" Type="real" />
+          <Property Name="CompanyID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shareholder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Total_Shares" Type="real" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="UserID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CompanyID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Shareholder_TypeID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Shareholder_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Shares_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+          <Property Name="CompanyID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stock_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Shares_Type" Type="varchar" MaxLength="50" />
+          <Property Name="Current_Amount" Type="real" />
+          <Property Name="Beneficiary" Type="varchar" MaxLength="20" />
+          <Property Name="Expired_Date" Type="date" />
+          <Property Name="ShareholderID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Share_TypeID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Transaction_Time" Type="date" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Shares_Quantity" Type="real" />
+          <Property Name="Time_Approve" Type="date" />
+          <Property Name="SeriesID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Stock_AccountID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Transaction_TypeID" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaction_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Avatar" Type="varchar" MaxLength="250" />
+          <Property Name="Fullname" Type="varchar" MaxLength="250" />
+          <Property Name="Identify_Card_Number" Type="text" />
+          <Property Name="Address" Type="varchar" MaxLength="250" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="250" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Role" Type="varchar" MaxLength="20" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FKSeries318895">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Series" Type="Self.Series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Series">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShareholde190336">
+          <End Role="User_Account" Type="Self.User_Account" Multiplicity="1" />
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shareholder">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShareholde376676">
+          <End Role="Shareholder_Type" Type="Self.Shareholder_Type" Multiplicity="1" />
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shareholder_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shareholder">
+              <PropertyRef Name="Shareholder_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShareholde957170">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shareholder">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShares_Typ407320">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Shares_Type" Type="Self.Shares_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shares_Type">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKStock_Acco321656">
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="1" />
+          <End Role="Stock_Account" Type="Self.Stock_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shareholder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stock_Account">
+              <PropertyRef Name="ShareholderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKStock_Acco464087">
+          <End Role="Shares_Type" Type="Self.Shares_Type" Multiplicity="1" />
+          <End Role="Stock_Account" Type="Self.Stock_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shares_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stock_Account">
+              <PropertyRef Name="Share_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTransactio156866">
+          <End Role="Stock_Account" Type="Self.Stock_Account" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock_Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="Stock_AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTransactio555221">
+          <End Role="Transaction_Type" Type="Self.Transaction_Type" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="Transaction_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTransactio79882">
+          <End Role="Series" Type="Self.Series" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Series">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="SeriesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StockManagementModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Series" EntityType="Self.Series" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shareholder" EntityType="Self.Shareholder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shareholder_Type" EntityType="Self.Shareholder_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shares_Type" EntityType="Self.Shares_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock_Account" EntityType="Self.Stock_Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction_Type" EntityType="Self.Transaction_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Account" EntityType="Self.User_Account" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FKSeries318895" Association="Self.FKSeries318895">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Series" EntitySet="Series" />
+          </AssociationSet>
+          <AssociationSet Name="FKShareholde190336" Association="Self.FKShareholde190336">
+            <End Role="User_Account" EntitySet="User_Account" />
+            <End Role="Shareholder" EntitySet="Shareholder" />
+          </AssociationSet>
+          <AssociationSet Name="FKShareholde376676" Association="Self.FKShareholde376676">
+            <End Role="Shareholder_Type" EntitySet="Shareholder_Type" />
+            <End Role="Shareholder" EntitySet="Shareholder" />
+          </AssociationSet>
+          <AssociationSet Name="FKShareholde957170" Association="Self.FKShareholde957170">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Shareholder" EntitySet="Shareholder" />
+          </AssociationSet>
+          <AssociationSet Name="FKShares_Typ407320" Association="Self.FKShares_Typ407320">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Shares_Type" EntitySet="Shares_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FKStock_Acco321656" Association="Self.FKStock_Acco321656">
+            <End Role="Shareholder" EntitySet="Shareholder" />
+            <End Role="Stock_Account" EntitySet="Stock_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FKStock_Acco464087" Association="Self.FKStock_Acco464087">
+            <End Role="Shares_Type" EntitySet="Shares_Type" />
+            <End Role="Stock_Account" EntitySet="Stock_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FKTransactio156866" Association="Self.FKTransactio156866">
+            <End Role="Stock_Account" EntitySet="Stock_Account" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FKTransactio555221" Association="Self.FKTransactio555221">
+            <End Role="Transaction_Type" EntitySet="Transaction_Type" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FKTransactio79882" Association="Self.FKTransactio79882">
+            <End Role="Series" EntitySet="Series" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StockManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Share_Value" Type="Single" />
+          <Property Name="Current_Series" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Icon_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Series" Relationship="Self.FKSeries318895" FromRole="Company" ToRole="Series" />
+          <NavigationProperty Name="Shareholders" Relationship="Self.FKShareholde957170" FromRole="Company" ToRole="Shareholder" />
+          <NavigationProperty Name="Shares_Type" Relationship="Self.FKShares_Typ407320" FromRole="Company" ToRole="Shares_Type" />
+        </EntityType>
+        <EntityType Name="Series">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OpenTime" Type="DateTime" Precision="0" />
+          <Property Name="CloseTime" Type="DateTime" Precision="0" />
+          <Property Name="Pre_Money" Type="Single" />
+          <Property Name="Post_Money" Type="Single" />
+          <Property Name="CompanyID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FKSeries318895" FromRole="Series" ToRole="Company" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FKTransactio79882" FromRole="Series" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Shareholder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Total_Shares" Type="Single" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Shareholder_TypeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FKShareholde957170" FromRole="Shareholder" ToRole="Company" />
+          <NavigationProperty Name="User_Account" Relationship="Self.FKShareholde190336" FromRole="Shareholder" ToRole="User_Account" />
+          <NavigationProperty Name="Shareholder_Type" Relationship="Self.FKShareholde376676" FromRole="Shareholder" ToRole="Shareholder_Type" />
+          <NavigationProperty Name="Stock_Account" Relationship="Self.FKStock_Acco321656" FromRole="Shareholder" ToRole="Stock_Account" />
+        </EntityType>
+        <EntityType Name="Shareholder_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Shareholders" Relationship="Self.FKShareholde376676" FromRole="Shareholder_Type" ToRole="Shareholder" />
+        </EntityType>
+        <EntityType Name="Shares_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FKShares_Typ407320" FromRole="Shares_Type" ToRole="Company" />
+          <NavigationProperty Name="Stock_Account" Relationship="Self.FKStock_Acco464087" FromRole="Shares_Type" ToRole="Stock_Account" />
+        </EntityType>
+        <EntityType Name="Stock_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Shares_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Current_Amount" Type="Single" />
+          <Property Name="Beneficiary" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Expired_Date" Type="DateTime" Precision="0" />
+          <Property Name="ShareholderID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Share_TypeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Shareholder" Relationship="Self.FKStock_Acco321656" FromRole="Stock_Account" ToRole="Shareholder" />
+          <NavigationProperty Name="Shares_Type1" Relationship="Self.FKStock_Acco464087" FromRole="Stock_Account" ToRole="Shares_Type" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FKTransactio156866" FromRole="Stock_Account" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Transaction_Time" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Shares_Quantity" Type="Single" />
+          <Property Name="Time_Approve" Type="DateTime" Precision="0" />
+          <Property Name="SeriesID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Stock_AccountID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Transaction_TypeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Series" Relationship="Self.FKTransactio79882" FromRole="Transaction" ToRole="Series" />
+          <NavigationProperty Name="Stock_Account" Relationship="Self.FKTransactio156866" FromRole="Transaction" ToRole="Stock_Account" />
+          <NavigationProperty Name="Transaction_Type" Relationship="Self.FKTransactio555221" FromRole="Transaction" ToRole="Transaction_Type" />
+        </EntityType>
+        <EntityType Name="Transaction_Type">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FKTransactio555221" FromRole="Transaction_Type" ToRole="Transaction" />
+        </EntityType>
+        <EntityType Name="User_Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Avatar" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Fullname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Identify_Card_Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Shareholders" Relationship="Self.FKShareholde190336" FromRole="User_Account" ToRole="Shareholder" />
+        </EntityType>
+        <Association Name="FKSeries318895">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Series" Type="Self.Series" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Series">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShareholde957170">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shareholder">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShares_Typ407320">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Shares_Type" Type="Self.Shares_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shares_Type">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTransactio79882">
+          <End Role="Series" Type="Self.Series" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Series">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="SeriesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShareholde190336">
+          <End Role="User_Account" Type="Self.User_Account" Multiplicity="1" />
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shareholder">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKShareholde376676">
+          <End Role="Shareholder_Type" Type="Self.Shareholder_Type" Multiplicity="1" />
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shareholder_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Shareholder">
+              <PropertyRef Name="Shareholder_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKStock_Acco321656">
+          <End Role="Shareholder" Type="Self.Shareholder" Multiplicity="1" />
+          <End Role="Stock_Account" Type="Self.Stock_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shareholder">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stock_Account">
+              <PropertyRef Name="ShareholderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKStock_Acco464087">
+          <End Role="Shares_Type" Type="Self.Shares_Type" Multiplicity="1" />
+          <End Role="Stock_Account" Type="Self.Stock_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Shares_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stock_Account">
+              <PropertyRef Name="Share_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTransactio156866">
+          <End Role="Stock_Account" Type="Self.Stock_Account" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock_Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="Stock_AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKTransactio555221">
+          <End Role="Transaction_Type" Type="Self.Transaction_Type" Multiplicity="1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction_Type">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="Transaction_TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StockManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Series" EntityType="Self.Series" />
+          <EntitySet Name="Shareholders" EntityType="Self.Shareholder" />
+          <EntitySet Name="Shareholder_Type" EntityType="Self.Shareholder_Type" />
+          <EntitySet Name="Shares_Type" EntityType="Self.Shares_Type" />
+          <EntitySet Name="Stock_Account" EntityType="Self.Stock_Account" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="Transaction_Type" EntityType="Self.Transaction_Type" />
+          <EntitySet Name="User_Account" EntityType="Self.User_Account" />
+          <AssociationSet Name="FKSeries318895" Association="Self.FKSeries318895">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Series" EntitySet="Series" />
+          </AssociationSet>
+          <AssociationSet Name="FKShareholde957170" Association="Self.FKShareholde957170">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Shareholder" EntitySet="Shareholders" />
+          </AssociationSet>
+          <AssociationSet Name="FKShares_Typ407320" Association="Self.FKShares_Typ407320">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Shares_Type" EntitySet="Shares_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FKTransactio79882" Association="Self.FKTransactio79882">
+            <End Role="Series" EntitySet="Series" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FKShareholde190336" Association="Self.FKShareholde190336">
+            <End Role="User_Account" EntitySet="User_Account" />
+            <End Role="Shareholder" EntitySet="Shareholders" />
+          </AssociationSet>
+          <AssociationSet Name="FKShareholde376676" Association="Self.FKShareholde376676">
+            <End Role="Shareholder_Type" EntitySet="Shareholder_Type" />
+            <End Role="Shareholder" EntitySet="Shareholders" />
+          </AssociationSet>
+          <AssociationSet Name="FKStock_Acco321656" Association="Self.FKStock_Acco321656">
+            <End Role="Shareholder" EntitySet="Shareholders" />
+            <End Role="Stock_Account" EntitySet="Stock_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FKStock_Acco464087" Association="Self.FKStock_Acco464087">
+            <End Role="Shares_Type" EntitySet="Shares_Type" />
+            <End Role="Stock_Account" EntitySet="Stock_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FKTransactio156866" Association="Self.FKTransactio156866">
+            <End Role="Stock_Account" EntitySet="Stock_Account" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FKTransactio555221" Association="Self.FKTransactio555221">
+            <End Role="Transaction_Type" EntitySet="Transaction_Type" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StockManagementModelStoreContainer" CdmEntityContainer="StockManagementEntities">
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="StockManagementModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Share_Value" ColumnName="Share_Value" />
+                <ScalarProperty Name="Current_Series" ColumnName="Current_Series" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Icon_Image" ColumnName="Icon_Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Series">
+            <EntityTypeMapping TypeName="StockManagementModel.Series">
+              <MappingFragment StoreEntitySet="Series">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OpenTime" ColumnName="OpenTime" />
+                <ScalarProperty Name="CloseTime" ColumnName="CloseTime" />
+                <ScalarProperty Name="Pre_Money" ColumnName="Pre_Money" />
+                <ScalarProperty Name="Post_Money" ColumnName="Post_Money" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shareholders">
+            <EntityTypeMapping TypeName="StockManagementModel.Shareholder">
+              <MappingFragment StoreEntitySet="Shareholder">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Total_Shares" ColumnName="Total_Shares" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="Shareholder_TypeID" ColumnName="Shareholder_TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shareholder_Type">
+            <EntityTypeMapping TypeName="StockManagementModel.Shareholder_Type">
+              <MappingFragment StoreEntitySet="Shareholder_Type">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shares_Type">
+            <EntityTypeMapping TypeName="StockManagementModel.Shares_Type">
+              <MappingFragment StoreEntitySet="Shares_Type">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stock_Account">
+            <EntityTypeMapping TypeName="StockManagementModel.Stock_Account">
+              <MappingFragment StoreEntitySet="Stock_Account">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Shares_Type" ColumnName="Shares_Type" />
+                <ScalarProperty Name="Current_Amount" ColumnName="Current_Amount" />
+                <ScalarProperty Name="Beneficiary" ColumnName="Beneficiary" />
+                <ScalarProperty Name="Expired_Date" ColumnName="Expired_Date" />
+                <ScalarProperty Name="ShareholderID" ColumnName="ShareholderID" />
+                <ScalarProperty Name="Share_TypeID" ColumnName="Share_TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="StockManagementModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Transaction_Time" ColumnName="Transaction_Time" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Shares_Quantity" ColumnName="Shares_Quantity" />
+                <ScalarProperty Name="Time_Approve" ColumnName="Time_Approve" />
+                <ScalarProperty Name="SeriesID" ColumnName="SeriesID" />
+                <ScalarProperty Name="Stock_AccountID" ColumnName="Stock_AccountID" />
+                <ScalarProperty Name="Transaction_TypeID" ColumnName="Transaction_TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_Type">
+            <EntityTypeMapping TypeName="StockManagementModel.Transaction_Type">
+              <MappingFragment StoreEntitySet="Transaction_Type">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Account">
+            <EntityTypeMapping TypeName="StockManagementModel.User_Account">
+              <MappingFragment StoreEntitySet="User_Account">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Identify_Card_Number" ColumnName="Identify_Card_Number" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

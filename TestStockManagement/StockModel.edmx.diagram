@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a2bba90b96f44e408cfbc28a48bd5a81" Name="Diagram1">
+        <EntityTypeShape EntityType="StockManagementModel.Company" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.Series" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.Shareholder" Width="1.5" PointX="6" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.Shareholder_Type" Width="1.5" PointX="3.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.Shares_Type" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.Stock_Account" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.Transaction" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.Transaction_Type" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StockManagementModel.User_Account" Width="1.5" PointX="3.75" PointY="13.75" IsExpanded="true" />
+        <AssociationConnector Association="StockManagementModel.FKSeries318895" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKShareholde957170" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKShares_Typ407320" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKTransactio79882" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKShareholde190336" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKShareholde376676" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKStock_Acco321656" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKStock_Acco464087" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKTransactio156866" ManuallyRouted="false" />
+        <AssociationConnector Association="StockManagementModel.FKTransactio555221" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
